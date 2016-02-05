@@ -229,7 +229,7 @@ case class Highchart(
 
   import HighchartKey._
 
-  implicit val formats = Serialization.formats(NoTypeHints)
+  implicit val formats = Serialization.formats(NoTypeHints) ++ org.json4s.ext.JodaTimeSerializers.all
   def toJson = Serialization.write(jsonMap)
 
   def jsonMap: Map[String, Any] = {
