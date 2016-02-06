@@ -127,6 +127,16 @@ object Highcharts extends IterablePairLowerPriorityImplicits with BinnedDataLowe
     plot(addStyle(hc, xy))
   }
 
+
+  def lines[A, B, C: Numeric, D: Numeric](xy: Seq[IterablePair[A, B, C, D]]) = {
+    import Highchart._
+    val hc = Highchart(xy.map( ip => {
+      val (xr,yr) = ip.toIterables
+      Series(xr.zip(yr).toTraversable, chart = SeriesType.line)
+    }).toSeq )
+    plot(hc)
+  }
+
   def pie[A, B, C: Numeric, D: Numeric](xy: IterablePair[A, B, C, D]) = {
     val (xr, yr) = xy.toIterables
     val hc = xyToSeries(xr, yr, SeriesType.pie)
@@ -157,7 +167,7 @@ object Highcharts extends IterablePairLowerPriorityImplicits with BinnedDataLowe
    */
   def help(): Unit = {
     println("\nAvailable Plot Types: Takes an Iterable, an Iterable of pairs, a pair of Iterables, or an Iterable and a Function\n")
-    Seq("area", "areaspline", "bar", "column", "line", "pie", "scatter", "spline", "regression")
+    Seq("area", "areaspline", "bar", "column", "line", "lines", "pie", "scatter", "spline", "regression")
       .map(s => "\t" + s)
       .foreach(println)
     println("\nOther plotting options:\n")

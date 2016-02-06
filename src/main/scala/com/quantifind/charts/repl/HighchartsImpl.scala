@@ -73,11 +73,12 @@ trait WebPlotHighcharts extends WebPlot[Highchart] {
 
   val wispJsImports: String =
     """
-      |<script type="text/javascript" src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
-      |<script type="text/javascript" src="http://code.highcharts.com/4.0.4/highcharts.js"></script>
-      |<script type="text/javascript" src="http://code.highcharts.com/4.0.4/modules/exporting.js"></script>
-      |<script type="text/javascript" src="http://code.highcharts.com/4.0.4/highcharts-more.js"></script>
+      |<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+      |<script src="https://code.highcharts.com/stock/highstock.js"></script>      
+      |<script src="https://code.highcharts.com/modules/exporting.js"></script>
     """.stripMargin
+
+    //  old code uses highcarts instead of highstock      |<script src="https://code.highcharts.com/highcharts.js"></script>
 
   val jsHeader =
     """
@@ -102,7 +103,7 @@ trait WebPlotHighcharts extends WebPlot[Highchart] {
       """
       |    <script type="text/javascript">
       |        $(function() {
-      |            $('#container%s').highcharts(
+      |            $('#container%s').highcharts('StockChart',
     """.stripMargin.format(index.toString) +
       """
       |                %s
